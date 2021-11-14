@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Tanks</title>
+        <script data-main="./dist/index" src="./require.js"></script>
+        <script>
+            window.onload = () => {
+                requirejs(["app/run"], function({ run }) {
+                    const canvas = document.getElementById("game");
+                    run(document.getElementById("game").getContext("2d"), canvas.width, canvas.height);
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Tanks</h1>
+        <canvas id="game" width="800" height="800" style="border: 1px solid black"></canvas>
+    </body>
+</html>

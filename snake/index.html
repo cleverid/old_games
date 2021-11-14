@@ -1,0 +1,91 @@
+<html>
+    <body>
+        <script>
+            window.onload = function() {
+                const canvas = document.getElementById("game");
+                const ctx = canvas.getContext('2d');
+
+                const WIDTH = 800;
+                const WIDTH_CELL = WIDTH / 40; 
+                const MIDDLE = 3;
+
+                let snake = [[10,10]];
+                let history = ["down"];
+                let length = history.length;
+                let direct = "down";
+                let stop = false;
+
+                const keyToDirect = {
+                    "w": "up",
+                    "s": "down",
+                    "a": "left",
+                    "d": "right",
+                }
+                document.addEventListener('keydown', (event) => {
+                    console.log(event.key);
+                    if (keyToDirect[event.key]) {
+                        direct = keyToDirect[event.key];
+                    }
+                    if (event.key === 'q') {
+                        stop = true;
+                    }
+                    if (event.key === 'e') {
+                        stop = false;
+                    }
+                });
+
+                function clear() {
+                    ctx.clearRect(0 , 0, canvas.width, canvas.height);
+                }
+
+                function renderCell(i, j, main = false) {
+                    ctx.fillStyle = main ? 'red' : 'yellow';
+                    ctx.strokeStyle = 'brown';
+                    ctx.fillRect(WIDTH_CELL * i + MIDDLE, WIDTH_CELL * j + MIDDLE, WIDTH_CELL - MIDDLE, WIDTH_CELL - MIDDLE);
+                    ctx.strokeRect(WIDTH_CELL * i + MIDDLE, WIDTH_CELL * j + MIDDLE, WIDTH_CELL - MIDDLE, WIDTH_CELL - MIDDLE);
+                }
+
+                function next() {
+                    let nextSnake = [];
+
+                    const transfer = {
+                        "down": ([i, j]) => ([i, j + 1]),
+                        "up": ([i, j]) => ([i, j - 1]),
+                        "left": ([i, j]) => ([i - 1, j]),
+                        "right": ([i, j]) => ([i + 1, j]),
+                    }
+                    for (let i = 0; i < snake.length; i++) {
+                        nextSnake.push(transfer[history[i]](snake[i]));
+                    }
+
+                    history.push(direct);
+                    history = history.slice(-length);
+                    if (nextSnake.length < length) {
+                        nextSnake.unshift(snake[0]);
+                    }
+
+                    snake = nextSnake;
+                }
+
+                function render() {
+                    if (stop) return;
+                    clear();
+                    for (let i = 0; i < snake.length; i++) {
+                        const item = snake[i];
+                        renderCell(...item, i + 1 === snake.length);
+                    }
+                    next();
+                }
+
+                function grow() {
+                    length++;
+                }
+
+                setInterval(render, 300);
+                setInterval(grow, 3000);
+            }
+        </script>
+        <h1>Snake</h1>
+        <canvas id="game" width="800" height="800" style="border: 1px solid black"></canvas>
+    </body>
+</html>

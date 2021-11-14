@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <script>
+            window.onload = () => {
+                // create offscreen image
+                const ctx = document.getElementById('canvas').getContext('2d');    
+                
+                const image = new Image();
+                image.src = "./lib/apple.png";
+                image.onload = () => {
+                    console.log(image.width, image.height);
+                    const scale = 0.2;
+                    const width = Math.floor(image.width * scale);
+                    const height = Math.floor(image.height * scale);
+                    
+                    ctx.save();
+                    
+                    ctx.translate(100, 0);
+                    ctx.rotate( 45 * (Math.PI/180));
+                    // ctx.translate(-80,-80);
+                    ctx.drawImage(image, 0, 0, width, height);
+                    
+                    ctx.translate(Math.floor(width / 2), Math.floor(height / 2));
+                    ctx.rotate(-45 * (Math.PI/180));
+                    ctx.drawImage(image, 0, 0, 30, 30);
+                }
+            }
+        </script>
+        <h1>Image loading</h1>
+        <canvas id="canvas" width="800" height="800" style="border: 1px solid black"></canvas>
+    </body>
+</html>
