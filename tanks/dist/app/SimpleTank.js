@@ -3,20 +3,36 @@ define(["require", "exports", "../core/GameObject"], function (require, exports,
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.SimpleTank = void 0;
     class SimpleTank extends GameObject_1.GameObject {
-        pivot = { x: 17, y: 28 };
+        pivot = { x: 17, y: 30 };
         step() {
-            const { x, y } = this.position;
+            let position = { ...this.position };
+            let rotation = this.rotation;
+            const rotationSpeed = 0.005;
+            const moveSpeed = 0.3;
+            const PI_2 = Math.PI / 2;
             const mapPositionTransform = {
-                "up": () => ({ x, y: y - 1 }),
-                "down": () => ({ x, y: y + 1 }),
-                "left": () => ({ x: x - 1, y }),
-                "right": () => ({ x: x + 1, y }),
+                "up": () => ({
+                    x: position.x + Math.cos(this.rotation - PI_2) * moveSpeed,
+                    y: position.y + Math.sin(this.rotation - PI_2) * moveSpeed
+                }),
+                "down": () => ({
+                    x: position.x - Math.cos(this.rotation - PI_2) * moveSpeed,
+                    y: position.y - Math.sin(this.rotation - PI_2) * moveSpeed
+                })
             };
-            let position = this.position;
-            if (this.direct && mapPositionTransform[this.direct]) {
-                position = mapPositionTransform[this.direct]();
+            const mapRotationTransform = {
+                "left": () => rotation - rotationSpeed,
+                "right": () => rotation + rotationSpeed,
+            };
+            for (const [direct, value] of Object.entries(this.directs)) {
+                if (value && mapPositionTransform[direct]) {
+                    position = mapPositionTransform[direct]();
+                }
+                if (value && mapRotationTransform[direct]) {
+                    rotation = mapRotationTransform[direct]();
+                }
             }
-            return { position };
+            return { position, rotation };
         }
         render(ctx) {
             ctx.strokeStyle = "blue";

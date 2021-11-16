@@ -12,21 +12,37 @@ define(["require", "exports", "./SimpleTank"], function (require, exports, Simpl
         };
         document.addEventListener('keydown', (event) => {
             if (keyToDirect[event.key]) {
-                tank.setDirect(keyToDirect[event.key]);
+                tank.setDirect(keyToDirect[event.key], true);
             }
         });
         document.addEventListener('keyup', (event) => {
             if (keyToDirect[event.key] !== undefined) {
-                tank.setDirect(undefined);
+                tank.setDirect(keyToDirect[event.key], false);
             }
         });
+        const renderOsi = (ctx) => {
+            return;
+            ctx.fillStyle = "blue";
+            ctx.rect(0, 0, 3, 100);
+            ctx.fill();
+            ctx.fillStyle = "red";
+            ctx.rect(0, 0, 100, 3);
+            ctx.fill();
+        };
         setInterval(() => {
             const step = tank.step();
+            const pivot = tank.pivot;
             tank.setPosition(step.position);
+            tank.setRotation(step.rotation);
             const { x, y } = step.position;
-            ctx.save();
-            ctx.translate(x, y);
+            const r = step.rotation;
             ctx.clearRect(-10, -10, width + 10, height + 10);
+            ctx.save();
+            renderOsi(ctx);
+            ctx.translate(x, y);
+            ctx.rotate(r);
+            renderOsi(ctx);
+            ctx.translate(-pivot.x, -pivot.y);
             tank.renderObjet(ctx);
             ctx.restore();
         }, 0);

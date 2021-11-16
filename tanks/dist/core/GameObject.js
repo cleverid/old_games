@@ -4,14 +4,24 @@ define(["require", "exports"], function (require, exports) {
     exports.GameObject = void 0;
     class GameObject {
         constructor() { }
-        direct;
+        directs = {
+            "up": false,
+            "down": false,
+            "left": false,
+            "right": false,
+        };
         position = { x: 0, y: 0 };
+        rotation = 0;
         setPosition(point) {
             this.position = point;
             return this;
         }
-        setDirect(direct) {
-            this.direct = direct;
+        setRotation(rotation) {
+            this.rotation = rotation;
+            return this;
+        }
+        setDirect(direct, value = true) {
+            this.directs[direct] = value;
             return this;
         }
         renderPivot(ctx) {

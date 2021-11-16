@@ -1,24 +1,42 @@
 import { GameObject } from "../core/GameObject";
-import { Direct, Point } from "../core/types";
+import { Point } from "../core/types";
 
 export class SimpleTank extends GameObject {
-  pivot: Point = { x: 17, y: 28 };
+  pivot: Point = { x: 17, y: 30 };
 
   step() {
-    const { x, y } = this.position;
-    const mapPositionTransform: {[key in Direct]: () => Point } = {
-        "up": () => ({ x, y: y - 1 }),
-        "down": () => ({ x, y: y + 1 }),
-        "left": () => ({ x: x - 1, y }),
-        "right": () => ({ x: x + 1, y }),
+    let position = { ...this.position };
+    let rotation = this.rotation;
+    const rotationSpeed = 0.005;
+    const moveSpeed = 0.3;
+    const PI_2 = Math.PI / 2;
+    const mapPositionTransform: {[key: string]: () => Point } = {
+      "up": () => ({ 
+        x: position.x + Math.cos(this.rotation - PI_2) * moveSpeed, 
+        y: position.y + Math.sin(this.rotation - PI_2) * moveSpeed 
+      }),
+      "down": () => ({ 
+        x: position.x - Math.cos(this.rotation - PI_2) * moveSpeed, 
+        y: position.y - Math.sin(this.rotation - PI_2) * moveSpeed 
+      })
+    }
+    const mapRotationTransform: {[key: string]: () => number } = {
+        "left": () => rotation - rotationSpeed,
+        "right": () => rotation + rotationSpeed,
     }
 
-    let position = this.position
-    if (this.direct && mapPositionTransform[this.direct]) {
-        position = mapPositionTransform[this.direct]();
+    for (const [direct, value] of Object.entries(this.directs)) {
+      if (value && mapPositionTransform[direct]) {
+        // @ts-ignore
+        position = mapPositionTransform[direct]()
+      }
+      if (value && mapRotationTransform[direct]) {
+        // @ts-ignore
+        rotation = mapRotationTransform[direct]()
+      } 
     }
     
-    return { position };
+    return { position, rotation };
   }
 
   render(ctx: CanvasRenderingContext2D): void {

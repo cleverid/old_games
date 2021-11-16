@@ -2,9 +2,16 @@ import { Direct, Point, StepData } from "./types";
 
 export abstract class GameObject {
     constructor() {}
+
     abstract readonly pivot: Point;
-    protected direct: Direct | undefined;
+    protected directs: {[key in Direct]: boolean} = {
+        "up": false,
+        "down": false,
+        "left": false,
+        "right": false,
+    };
     protected position: Point = { x: 0, y: 0 };
+    protected rotation: number = 0;
 
     abstract render(ctx: CanvasRenderingContext2D): void;
     abstract step(): StepData;
@@ -13,8 +20,12 @@ export abstract class GameObject {
         this.position = point;
         return this;
     }
-    setDirect(direct?: Direct): this {
-        this.direct = direct;
+    setRotation(rotation: number): this {
+        this.rotation = rotation;
+        return this;
+    }
+    setDirect(direct: Direct, value: boolean = true): this {
+        this.directs[direct] = value;
         return this;
     }
     renderPivot(ctx: CanvasRenderingContext2D): void {
