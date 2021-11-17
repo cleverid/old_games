@@ -4,25 +4,18 @@ define(["require", "exports"], function (require, exports) {
     exports.GameObject = void 0;
     class GameObject {
         constructor() { }
-        directs = {
-            "up": false,
-            "down": false,
-            "left": false,
-            "right": false,
-        };
         position = { x: 0, y: 0 };
         rotation = 0;
-        setPosition(point) {
-            this.position = point;
+        setTransformation(trans) {
+            this.position = trans.position;
+            this.rotation = trans.rotation;
             return this;
         }
-        setRotation(rotation) {
-            this.rotation = rotation;
-            return this;
-        }
-        setDirect(direct, value = true) {
-            this.directs[direct] = value;
-            return this;
+        getTransformation() {
+            return {
+                position: this.position,
+                rotation: this.rotation
+            };
         }
         renderPivot(ctx) {
             ctx.save();
@@ -34,9 +27,16 @@ define(["require", "exports"], function (require, exports) {
             ctx.fill();
             ctx.restore();
         }
+        renderOsi = (ctx) => {
+            ctx.fillStyle = "blue";
+            ctx.rect(0, 0, 3, 100);
+            ctx.fill();
+            ctx.fillStyle = "red";
+            ctx.rect(0, 0, 100, 3);
+            ctx.fill();
+        };
         renderObjet(ctx) {
             this.render(ctx);
-            this.renderPivot(ctx);
         }
     }
     exports.GameObject = GameObject;

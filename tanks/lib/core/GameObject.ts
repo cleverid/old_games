@@ -1,33 +1,27 @@
-import { Direct, Point, StepData } from "./types";
+import { ITransformation, Point, Transformation } from "./types";
 
-export abstract class GameObject {
+export abstract class GameObject implements ITransformation {
     constructor() {}
 
     abstract readonly pivot: Point;
-    protected directs: {[key in Direct]: boolean} = {
-        "up": false,
-        "down": false,
-        "left": false,
-        "right": false,
-    };
     protected position: Point = { x: 0, y: 0 };
     protected rotation: number = 0;
 
     abstract render(ctx: CanvasRenderingContext2D): void;
-    abstract step(): StepData;
 
-    setPosition(point: Point): this {
-        this.position = point;
+    setTransformation(trans: Transformation): this {
+        this.position = trans.position;
+        this.rotation = trans.rotation;
         return this;
     }
-    setRotation(rotation: number): this {
-        this.rotation = rotation;
-        return this;
+
+    getTransformation(): Transformation {
+        return {
+            position: this.position,
+            rotation: this.rotation
+        }
     }
-    setDirect(direct: Direct, value: boolean = true): this {
-        this.directs[direct] = value;
-        return this;
-    }
+
     renderPivot(ctx: CanvasRenderingContext2D): void {
         ctx.save();
         ctx.beginPath();
@@ -38,8 +32,19 @@ export abstract class GameObject {
         ctx.fill();
         ctx.restore()
     }
+
+    renderOsi = (ctx: CanvasRenderingContext2D) => {
+        ctx.fillStyle="blue";
+        ctx.rect(0, 0, 3, 100)
+        ctx.fill();
+        ctx.fillStyle="red";
+        ctx.rect(0, 0, 100, 3)
+        ctx.fill();
+    }
+
     renderObjet(ctx: CanvasRenderingContext2D): void {
         this.render(ctx);
-        this.renderPivot(ctx);
+        // this.renderPivot(ctx);
+        // this.renderOsi(ctx);
     }
 }

@@ -1,4 +1,4 @@
-define(["require", "exports", "./BaseController"], function (require, exports, BaseController_1) {
+define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.CarController = void 0;
@@ -8,10 +8,9 @@ define(["require", "exports", "./BaseController"], function (require, exports, B
         "left": ["KeyA"],
         "right": ["KeyD"],
     };
-    class CarController extends BaseController_1.BaseController {
+    class CarController {
         directs = new Map();
         constructor(mapDirectToKeyParams) {
-            super();
             const mapDirectToKey = mapDirectToKeyParams ?? mapDirectToKeyDefault;
             const mapKeyToDirect = {};
             for (const [direct, keys] of Object.entries(mapDirectToKey)) {
@@ -57,4 +56,4 @@ define(["require", "exports", "./BaseController"], function (require, exports, B
     }
     exports.CarController = CarController;
 });
-//# sourceMappingURL=CarController.js.map
+//# sourceMappingURL=CarController%20copy.js.map

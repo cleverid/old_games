@@ -1,53 +1,27 @@
+import { CarController } from "../core/CarController";
+import { Scene } from "../core/Scene";
 import { SimpleTank } from "./SimpleTank";
 
 export const run = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
-    const tank = new SimpleTank();
+    const tank1 = new SimpleTank();
+    const tank2 = new SimpleTank().setTransformation({ position: { x: 100, y: 0 }, rotation: 0 });
 
-    const keyToDirect: any = {
-        "w": "up",
-        "s": "down",
-        "a": "left",
-        "d": "right",
-    }
-    document.addEventListener('keydown', (event) => {
-        if (keyToDirect[event.key]) {
-            tank.setDirect(keyToDirect[event.key], true);
-        }
-    });
-    document.addEventListener('keyup', (event) => {
-        if (keyToDirect[event.key] !== undefined) {
-            tank.setDirect(keyToDirect[event.key], false);
-        }
-    });
+    const controller1 = new CarController();
+    const controller2 = new CarController({
+        "up": ["ArrowUp"],
+        "down": ["ArrowDown"],
+        "left": ["ArrowLeft"],
+        "right": ["ArrowRight"],
+    })
 
-    const renderOsi = (ctx: CanvasRenderingContext2D) => {
-        return;
-        ctx.fillStyle="blue";
-        ctx.rect(0, 0, 3, 100)
-        ctx.fill();
-        ctx.fillStyle="red";
-        ctx.rect(0, 0, 100, 3)
-        ctx.fill();
-    }
+    const scene = new Scene(ctx, width, height)
+        .addObject(tank1)
+        .addObject(tank2)
+        .addController(controller1, tank1)
+        .addController(controller2, tank2)
+    ;
 
     setInterval(() => {
-        const step = tank.step();
-        const pivot = tank.pivot;
-        tank.setPosition(step.position);
-        tank.setRotation(step.rotation);
-        
-        const { x, y } = step.position;
-        const r = step.rotation;
-        ctx.clearRect(-10, -10, width + 10, height + 10);
-        ctx.save();
-        renderOsi(ctx);
-        ctx.translate(x, y);
-        ctx.rotate(r);
-        renderOsi(ctx);
-        ctx.translate(-pivot.x, -pivot.y);
-        tank.renderObjet(ctx);
-
-
-        ctx.restore();
+        scene.render();
     }, 0)
 }

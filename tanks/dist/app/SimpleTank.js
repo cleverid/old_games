@@ -4,31 +4,6 @@ define(["require", "exports", "../core/GameObject"], function (require, exports,
     exports.SimpleTank = void 0;
     class SimpleTank extends GameObject_1.GameObject {
         pivot = { x: 17, y: 30 };
-        step() {
-            let position = { ...this.position };
-            let rotation = this.rotation;
-            const rotationSpeed = 0.005;
-            const moveSpeed = 0.3;
-            const PI_2 = Math.PI / 2;
-            const mapTransform = {
-                "up": () => {
-                    position.x += Math.cos(this.rotation - PI_2) * moveSpeed;
-                    position.y += Math.sin(this.rotation - PI_2) * moveSpeed;
-                },
-                "down": () => {
-                    position.x -= Math.cos(this.rotation - PI_2) * moveSpeed;
-                    position.y -= Math.sin(this.rotation - PI_2) * moveSpeed;
-                },
-                "left": () => { rotation -= rotationSpeed; },
-                "right": () => { rotation += rotationSpeed; },
-            };
-            for (const [direct, value] of Object.entries(this.directs)) {
-                if (value && mapTransform[direct]) {
-                    mapTransform[direct]();
-                }
-            }
-            return { position, rotation };
-        }
         render(ctx) {
             ctx.strokeStyle = "blue";
             const ofX = 0;
