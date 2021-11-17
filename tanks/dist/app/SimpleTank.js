@@ -10,26 +10,21 @@ define(["require", "exports", "../core/GameObject"], function (require, exports,
             const rotationSpeed = 0.005;
             const moveSpeed = 0.3;
             const PI_2 = Math.PI / 2;
-            const mapPositionTransform = {
-                "up": () => ({
-                    x: position.x + Math.cos(this.rotation - PI_2) * moveSpeed,
-                    y: position.y + Math.sin(this.rotation - PI_2) * moveSpeed
-                }),
-                "down": () => ({
-                    x: position.x - Math.cos(this.rotation - PI_2) * moveSpeed,
-                    y: position.y - Math.sin(this.rotation - PI_2) * moveSpeed
-                })
-            };
-            const mapRotationTransform = {
-                "left": () => rotation - rotationSpeed,
-                "right": () => rotation + rotationSpeed,
+            const mapTransform = {
+                "up": () => {
+                    position.x += Math.cos(this.rotation - PI_2) * moveSpeed;
+                    position.y += Math.sin(this.rotation - PI_2) * moveSpeed;
+                },
+                "down": () => {
+                    position.x -= Math.cos(this.rotation - PI_2) * moveSpeed;
+                    position.y -= Math.sin(this.rotation - PI_2) * moveSpeed;
+                },
+                "left": () => { rotation -= rotationSpeed; },
+                "right": () => { rotation += rotationSpeed; },
             };
             for (const [direct, value] of Object.entries(this.directs)) {
-                if (value && mapPositionTransform[direct]) {
-                    position = mapPositionTransform[direct]();
-                }
-                if (value && mapRotationTransform[direct]) {
-                    rotation = mapRotationTransform[direct]();
+                if (value && mapTransform[direct]) {
+                    mapTransform[direct]();
                 }
             }
             return { position, rotation };

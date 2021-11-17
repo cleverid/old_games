@@ -1,5 +1,5 @@
 import { GameObject } from "../core/GameObject";
-import { Point } from "../core/types";
+import { Direct, Point } from "../core/types";
 
 export class SimpleTank extends GameObject {
   pivot: Point = { x: 17, y: 30 };
@@ -10,30 +10,23 @@ export class SimpleTank extends GameObject {
     const rotationSpeed = 0.005;
     const moveSpeed = 0.3;
     const PI_2 = Math.PI / 2;
-    const mapPositionTransform: {[key: string]: () => Point } = {
-      "up": () => ({ 
-        x: position.x + Math.cos(this.rotation - PI_2) * moveSpeed, 
-        y: position.y + Math.sin(this.rotation - PI_2) * moveSpeed 
-      }),
-      "down": () => ({ 
-        x: position.x - Math.cos(this.rotation - PI_2) * moveSpeed, 
-        y: position.y - Math.sin(this.rotation - PI_2) * moveSpeed 
-      })
-    }
-    const mapRotationTransform: {[key: string]: () => number } = {
-        "left": () => rotation - rotationSpeed,
-        "right": () => rotation + rotationSpeed,
+    const mapTransform: {[key in Direct]: () => void } = {
+      "up": () => { 
+        position.x += Math.cos(this.rotation - PI_2) * moveSpeed; 
+        position.y += Math.sin(this.rotation - PI_2) * moveSpeed;
+      },
+      "down": () => {
+        position.x -= Math.cos(this.rotation - PI_2) * moveSpeed; 
+        position.y -= Math.sin(this.rotation - PI_2) * moveSpeed;
+      },
+      "left": () => { rotation -= rotationSpeed },
+      "right": () => { rotation += rotationSpeed },
     }
 
-    for (const [direct, value] of Object.entries(this.directs)) {
-      if (value && mapPositionTransform[direct]) {
-        // @ts-ignore
-        position = mapPositionTransform[direct]()
+    for (const [direct, value] of Object.entries(this.directs) as unknown as [Direct, any][]) {
+      if (value && mapTransform[direct]) {
+        mapTransform[direct]()
       }
-      if (value && mapRotationTransform[direct]) {
-        // @ts-ignore
-        rotation = mapRotationTransform[direct]()
-      } 
     }
     
     return { position, rotation };
