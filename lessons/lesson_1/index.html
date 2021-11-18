@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Урок 1</title>
+        <script>
+            function draw() {
+                const ctx = document.getElementById("game").getContext("2d");
+                
+                ctx.arc(100, 100, 20, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        </script>
+    </head>
+    <body onload="draw();">
+        <h1>Урок 1 - Каркас для работы</h1>
+        <canvas id="game" width="800" height="800" style="border: 1px solid black"></canvas>
+    </body>
+</html>
