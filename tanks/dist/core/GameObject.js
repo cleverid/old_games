@@ -6,6 +6,19 @@ define(["require", "exports"], function (require, exports) {
         constructor() { }
         position = { x: 0, y: 0 };
         rotation = 0;
+        children = [];
+        parent;
+        childrenOffset;
+        addChildren(obj, offset) {
+            obj.setParent(this, offset);
+            this.children.push(obj);
+            return this;
+        }
+        setParent(obj, offset) {
+            this.parent = obj;
+            this.childrenOffset = offset;
+            return this;
+        }
         setTransformation(trans) {
             this.position = trans.position;
             this.rotation = trans.rotation;
@@ -13,7 +26,7 @@ define(["require", "exports"], function (require, exports) {
         }
         getTransformation() {
             return {
-                position: this.position,
+                position: { ...this.position },
                 rotation: this.rotation
             };
         }
@@ -37,6 +50,7 @@ define(["require", "exports"], function (require, exports) {
         };
         renderObjet(ctx) {
             this.render(ctx);
+            this.renderPivot(ctx);
         }
     }
     exports.GameObject = GameObject;

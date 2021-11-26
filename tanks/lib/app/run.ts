@@ -1,10 +1,15 @@
 import { CarController } from "../core/CarController";
 import { Scene } from "../core/Scene";
+import { Gun } from "./Gun";
 import { SimpleTank } from "./SimpleTank";
+import { SimpleTankWithoutGun } from "./SimpleTankWithoutGun";
 
 export const run = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
-    const tank1 = new SimpleTank();
-    const tank2 = new SimpleTank().setTransformation({ position: { x: 100, y: 0 }, rotation: 0 });
+    const gun = new Gun();
+    const tank1 = new SimpleTankWithoutGun()
+        .addChildren(gun, {x: 5, y: -5})
+        .setTransformation({ position: { x: 100, y: 100 }, rotation: 0 });
+    const tank2 = new SimpleTank().setTransformation({ position: { x: 200, y: 100 }, rotation: 0 });
 
     const controller1 = new CarController();
     const controller2 = new CarController({

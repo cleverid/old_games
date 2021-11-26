@@ -2,12 +2,27 @@ import { ITransformation, Point, Transformation } from "./types";
 
 export abstract class GameObject implements ITransformation {
     constructor() {}
-
+    
     abstract readonly pivot: Point;
     protected position: Point = { x: 0, y: 0 };
     protected rotation: number = 0;
+    public children: GameObject[] = [];
+    public parent?: GameObject;
+    public childrenOffset?: Point;
 
     abstract render(ctx: CanvasRenderingContext2D): void;
+
+    addChildren(obj: GameObject, offset: Point): this {
+        obj.setParent(this, offset);
+        this.children.push(obj);
+        return this;
+    }
+
+    setParent(obj: GameObject, offset: Point): this {
+        this.parent = obj;
+        this.childrenOffset = offset;
+        return this;
+    }
 
     setTransformation(trans: Transformation): this {
         this.position = trans.position;
@@ -17,7 +32,7 @@ export abstract class GameObject implements ITransformation {
 
     getTransformation(): Transformation {
         return {
-            position: this.position,
+            position: { ... this.position },
             rotation: this.rotation
         }
     }
@@ -44,7 +59,7 @@ export abstract class GameObject implements ITransformation {
 
     renderObjet(ctx: CanvasRenderingContext2D): void {
         this.render(ctx);
-        // this.renderPivot(ctx);
+        this.renderPivot(ctx);
         // this.renderOsi(ctx);
     }
 }
