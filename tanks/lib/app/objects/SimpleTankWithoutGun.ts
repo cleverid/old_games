@@ -1,25 +1,16 @@
-import { GameObject } from "../core/GameObject";
-import { Point } from "../core/types";
+import { GameObject } from "../../core/objects/GameObject";
+import { Point } from "../../core/types";
 
-export class SimpleTank extends GameObject {
+export class SimpleTankWithoutGun extends GameObject {
   pivot: Point = { x: 17, y: 30 };
 
   render(ctx: CanvasRenderingContext2D): void {
-    ctx.strokeStyle = "blue";
     const ofX = 0;
     const ofY = 0;
 
     // Основа танка
     ctx.strokeStyle = "black";
     ctx.rect(ofX + 2, ofY + 10, 30, 40);
-    ctx.stroke();
-
-    // Пушка
-    ctx.beginPath();
-    ctx.rect(ofX + 16, ofY, 2, 15);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(ofX + 17, ofY + 25, 10, 0, 2 * Math.PI);
     ctx.stroke();
 
     // Гусеницы

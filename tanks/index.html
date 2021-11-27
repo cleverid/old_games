@@ -6,7 +6,7 @@
             window.onload = () => {
                 requirejs(["app/run"], function({ run }) {
                     const canvas = document.getElementById("game");
-                    run(document.getElementById("game").getContext("2d"), canvas.width, canvas.height);
+                    run(canvas);
                 });
             }
         </script>

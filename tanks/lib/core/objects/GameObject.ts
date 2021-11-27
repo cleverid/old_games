@@ -1,4 +1,4 @@
-import { ITransformation, Point, Transformation } from "./types";
+import { ITransformation, Point, Transformation } from "../types";
 
 export abstract class GameObject implements ITransformation {
     constructor() {}

@@ -1,0 +1,1 @@
+{"version":3,"file":"EmptyObject.js","sourceRoot":"./lib/","sources":["core/objects/EmptyObject.ts"],"names":[],"mappings":";;;;IAGA,MAAa,WAAY,SAAQ,uBAAU;QACvC,KAAK,GAAU,EAAE,CAAC,EAAE,CAAC,EAAE,CAAC,EAAC,CAAC,EAAE,CAAC;QAC7B,MAAM,CAAC,CAA2B,IAAS,CAAC;KAC/C;IAHD,kCAGC"}

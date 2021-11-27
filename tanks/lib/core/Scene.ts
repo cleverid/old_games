@@ -1,5 +1,5 @@
-import { BaseController } from "./BaseController";
-import { GameObject } from "./GameObject";
+import { BaseController } from "./controllers/BaseController";
+import { GameObject } from "./objects/GameObject";
 import { transLocalToGlobal } from "./utils/transformationLocalToGlobal";
 
 export class Scene {

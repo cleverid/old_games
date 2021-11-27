@@ -1,5 +1,5 @@
 import { BaseController } from "./BaseController";
-import { Direct, ITransformation, Transformation } from "./types";
+import { Direct, ITransformation, Transformation } from "../types";
 
 export type IMapDirectToKey = {[key in Direct]: string[]}
 export type IMapKeyToDirect = {[key in string]: Direct}

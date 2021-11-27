@@ -1,5 +1,5 @@
-import { GameObject } from "../core/GameObject";
-import { Point } from "../core/types";
+import { GameObject } from "../../core/objects/GameObject";
+import { Point } from "../../core/types";
 
 export class Gun extends GameObject {
   pivot: Point = { x: 17, y: 25 };
