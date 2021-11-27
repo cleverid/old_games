@@ -1,5 +1,6 @@
 import { CarController } from "../core/controllers/CarController";
 import { CopyPositionController } from "../core/controllers/CopyPositionController";
+import { TargetController } from "../core/controllers/TargetController";
 import { EmptyObject } from "../core/objects/EmptyObject";
 import { Scene } from "../core/Scene";
 import { AimObject } from "./objects/AimObject";
@@ -27,6 +28,7 @@ export const run = (canvas: HTMLCanvasElement) => {
         "right": ["ArrowRight"],
     })
     const aimController = new CopyPositionController(cursor);
+    const targetController = new TargetController(cursor);
 
     const scene = new Scene(ctx, width, height)
         .addObject(tank1)
@@ -36,6 +38,7 @@ export const run = (canvas: HTMLCanvasElement) => {
         .addController(controller1, tank1)
         .addController(controller2, tank2)
         .addController(aimController, aim)
+        .addController(targetController, gun)
     ;
 
     canvas.addEventListener("mousemove", (e) => {
