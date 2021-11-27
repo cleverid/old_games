@@ -1,4 +1,4 @@
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "./utils/transformationLocalToGlobal"], function (require, exports, transformationLocalToGlobal_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Scene = void 0;
@@ -26,16 +26,9 @@ define(["require", "exports"], function (require, exports) {
         }
         render() {
             for (const obj of this.walkRender()) {
-                if (obj.parent !== undefined && obj.childrenOffset) {
-                    const parentTrans = obj.parent.getTransformation();
-                    const offset = obj.childrenOffset;
-                    const { x, y } = parentTrans.position;
-                    const rotation = parentTrans.rotation;
-                    const position = {
-                        x: x + Math.cos(rotation + Math.PI / 2) * offset.y,
-                        y: y + Math.sin(rotation + Math.PI / 2) * offset.y
-                    };
-                    obj.setTransformation({ position, rotation: 0 });
+                if (obj.parent !== undefined) {
+                    const transGlobal = (0, transformationLocalToGlobal_1.transLocalToGlobal)(obj.transLocal, obj.parent.trans);
+                    obj.setTransformation(transGlobal);
                 }
                 const controller = this.getController(obj);
                 if (controller) {

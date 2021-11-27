@@ -4,11 +4,10 @@ define(["require", "exports"], function (require, exports) {
     exports.GameObject = void 0;
     class GameObject {
         constructor() { }
-        position = { x: 0, y: 0 };
-        rotation = 0;
+        trans = { position: { x: 0, y: 0 }, rotation: 0 };
+        transLocal = { position: { x: 0, y: 0 }, rotation: 0 };
         children = [];
         parent;
-        childrenOffset;
         addChildren(obj, offset) {
             obj.setParent(this, offset);
             this.children.push(obj);
@@ -16,18 +15,17 @@ define(["require", "exports"], function (require, exports) {
         }
         setParent(obj, offset) {
             this.parent = obj;
-            this.childrenOffset = offset;
+            this.transLocal = { position: offset, rotation: 0 };
             return this;
         }
         setTransformation(trans) {
-            this.position = trans.position;
-            this.rotation = trans.rotation;
+            this.trans = trans;
             return this;
         }
         getTransformation() {
             return {
-                position: { ...this.position },
-                rotation: this.rotation
+                position: { ...this.trans.position },
+                rotation: this.trans.rotation
             };
         }
         renderPivot(ctx) {
@@ -50,7 +48,6 @@ define(["require", "exports"], function (require, exports) {
         };
         renderObjet(ctx) {
             this.render(ctx);
-            this.renderPivot(ctx);
         }
     }
     exports.GameObject = GameObject;
