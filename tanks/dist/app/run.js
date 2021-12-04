@@ -1,4 +1,4 @@
-define(["require", "exports", "../core/controllers/CarController", "../core/controllers/CopyPositionController", "../core/controllers/TargetController", "../core/objects/EmptyObject", "../core/Scene", "./objects/AimObject", "./objects/Gun", "./objects/TankSimple"], function (require, exports, CarController_1, CopyPositionController_1, TargetController_1, EmptyObject_1, Scene_1, AimObject_1, Gun_1, TankSimple_1) {
+define(["require", "exports", "../core/controllers/CarController", "../core/controllers/CopyPositionController", "../core/controllers/LineMoveController", "../core/controllers/TargetController", "../core/objects/EmptyObject", "../core/Scene", "./objects/AimObject", "./objects/Gun", "./objects/TankSimple"], function (require, exports, CarController_1, CopyPositionController_1, LineMoveController_1, TargetController_1, EmptyObject_1, Scene_1, AimObject_1, Gun_1, TankSimple_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.run = void 0;
@@ -24,11 +24,15 @@ define(["require", "exports", "../core/controllers/CarController", "../core/cont
         });
         const aimController = new CopyPositionController_1.CopyPositionController(cursor);
         const targetController = new TargetController_1.TargetController(cursor);
+        const bullet = new EmptyObject_1.EmptyObject();
+        const bulletController = new LineMoveController_1.LineMoveController(Math.PI / 4, 1);
         const scene = new Scene_1.Scene(ctx, width, height)
             .addObject(tank1)
             .addObject(tank2)
             .addObject(cursor)
             .addObject(aim)
+            .addObject(bullet)
+            .addController(bulletController, bullet)
             .addController(controller1, tank1)
             .addController(controller2, tank2)
             .addController(aimController, aim)

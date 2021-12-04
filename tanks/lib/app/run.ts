@@ -1,5 +1,6 @@
 import { CarController } from "../core/controllers/CarController";
 import { CopyPositionController } from "../core/controllers/CopyPositionController";
+import { LineMoveController } from "../core/controllers/LineMoveController";
 import { TargetController } from "../core/controllers/TargetController";
 import { EmptyObject } from "../core/objects/EmptyObject";
 import { Scene } from "../core/Scene";
@@ -33,11 +34,16 @@ export const run = (canvas: HTMLCanvasElement) => {
     const aimController = new CopyPositionController(cursor);
     const targetController = new TargetController(cursor);
 
+    const bullet = new EmptyObject();
+    const bulletController = new LineMoveController(Math.PI / 4, 1);
+
     const scene = new Scene(ctx, width, height)
         .addObject(tank1)
         .addObject(tank2)
         .addObject(cursor)
         .addObject(aim)
+        .addObject(bullet)
+        .addController(bulletController, bullet)
         .addController(controller1, tank1)
         .addController(controller2, tank2)
         .addController(aimController, aim)
