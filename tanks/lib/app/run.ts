@@ -13,14 +13,15 @@ export const run = (canvas: HTMLCanvasElement) => {
     
     const gun1 = new Gun();
     const gun2 = new Gun();
-    const aim = new AimObject()
-    const cursor = new EmptyObject().setTransformation({ position: { x: -20, y: -20 }, rotation: 0 });
     const tank1 = new TankSimple()
         .addChildren(gun1, { position: { x: 0, y: -6 }, rotation: 0})
         .setTransformation({ position: { x: 100, y: 100 }, rotation: 0 });
     const tank2 = new TankSimple()
         .addChildren(gun2, { position: { x: 0, y: -6 }, rotation: 0})
         .setTransformation({ position: { x: 200, y: 100 }, rotation: 0 });
+
+    const aim = new AimObject();
+    const cursor = new EmptyObject().setTransformation({ position: { x: -20, y: -20 }, rotation: 0 });
 
     const controller1 = new CarController();
     const controller2 = new CarController({

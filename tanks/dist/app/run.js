@@ -7,14 +7,14 @@ define(["require", "exports", "../core/controllers/CarController", "../core/cont
         const ctx = canvas.getContext('2d');
         const gun1 = new Gun_1.Gun();
         const gun2 = new Gun_1.Gun();
-        const aim = new AimObject_1.AimObject();
-        const cursor = new EmptyObject_1.EmptyObject().setTransformation({ position: { x: -20, y: -20 }, rotation: 0 });
         const tank1 = new TankSimple_1.TankSimple()
             .addChildren(gun1, { position: { x: 0, y: -6 }, rotation: 0 })
             .setTransformation({ position: { x: 100, y: 100 }, rotation: 0 });
         const tank2 = new TankSimple_1.TankSimple()
             .addChildren(gun2, { position: { x: 0, y: -6 }, rotation: 0 })
             .setTransformation({ position: { x: 200, y: 100 }, rotation: 0 });
+        const aim = new AimObject_1.AimObject();
+        const cursor = new EmptyObject_1.EmptyObject().setTransformation({ position: { x: -20, y: -20 }, rotation: 0 });
         const controller1 = new CarController_1.CarController();
         const controller2 = new CarController_1.CarController({
             "up": ["ArrowUp"],
