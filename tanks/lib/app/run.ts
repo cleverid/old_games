@@ -16,7 +16,7 @@ export const run = (canvas: HTMLCanvasElement) => {
     const aim = new AimObject()
     const cursor = new EmptyObject().setTransformation({ position: { x: -20, y: -20 }, rotation: 0 });
     const tank1 = new SimpleTankWithoutGun()
-        .addChildren(gun, {x: 0, y: -6})
+        .addChildren(gun, { position: {x: 0, y: -6}, rotation: 0})
         .setTransformation({ position: { x: 100, y: 100 }, rotation: 0 });
     const tank2 = new SimpleTank().setTransformation({ position: { x: 200, y: 100 }, rotation: 0 });
 

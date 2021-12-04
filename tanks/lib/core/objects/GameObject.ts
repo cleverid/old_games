@@ -11,15 +11,15 @@ export abstract class GameObject implements ITransformation {
 
     abstract render(ctx: CanvasRenderingContext2D): void;
 
-    addChildren(obj: GameObject, offset: Point): this {
-        obj.setParent(this, offset);
+    addChildren(obj: GameObject, trans: Transformation): this {
+        obj.setParent(this, trans);
         this.children.push(obj);
         return this;
     }
 
-    setParent(obj: GameObject, offset: Point): this {
+    setParent(obj: GameObject, trans: Transformation): this {
         this.parent = obj;
-        this.transLocal = { position: offset, rotation: 0 };
+        this.transLocal = trans;
         return this;
     }
 
@@ -47,17 +47,19 @@ export abstract class GameObject implements ITransformation {
     }
 
     renderOsi = (ctx: CanvasRenderingContext2D) => {
+        const length = 20;
+        const width = 1;
+        ctx.save();
         ctx.fillStyle="blue";
-        ctx.rect(0, 0, 3, 100)
-        ctx.fill();
+        ctx.fillRect(this.pivot.x, this.pivot.y, width, length)
         ctx.fillStyle="red";
-        ctx.rect(0, 0, 100, 3)
-        ctx.fill();
+        ctx.fillRect(this.pivot.x, this.pivot.y, length, width)
+        ctx.restore();
     }
 
     renderObjet(ctx: CanvasRenderingContext2D): void {
         this.render(ctx);
         // this.renderPivot(ctx);
-        // this.renderOsi(ctx);
+        this.renderOsi(ctx);
     }
 }

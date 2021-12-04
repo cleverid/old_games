@@ -9,7 +9,7 @@ define(["require", "exports", "../core/controllers/CarController", "../core/cont
         const aim = new AimObject_1.AimObject();
         const cursor = new EmptyObject_1.EmptyObject().setTransformation({ position: { x: -20, y: -20 }, rotation: 0 });
         const tank1 = new SimpleTankWithoutGun_1.SimpleTankWithoutGun()
-            .addChildren(gun, { x: 0, y: -6 })
+            .addChildren(gun, { position: { x: 0, y: -6 }, rotation: 0 })
             .setTransformation({ position: { x: 100, y: 100 }, rotation: 0 });
         const tank2 = new SimpleTank_1.SimpleTank().setTransformation({ position: { x: 200, y: 100 }, rotation: 0 });
         const controller1 = new CarController_1.CarController();

@@ -13,6 +13,6 @@ export function transLocalToGlobal(local: Transformation, parent?: Transformatio
             x: x + Math.cos(fi) * offset.y - Math.sin(fi) * offset.x, 
             y: y + Math.sin(fi) * offset.y + Math.cos(fi) * offset.x
         },
-        rotation: 0
+        rotation: rotation + local.rotation
     };
 }

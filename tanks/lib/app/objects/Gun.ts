@@ -7,7 +7,7 @@ export class Gun extends GameObject {
 
   constructor() {
     super();
-    this.addChildren(new EmptyObject(), { x: 0, y: -24 })
+    this.addChildren(new EmptyObject(), { position: { x: 0, y: -24 }, rotation: 0})
   }
 
   render(ctx: CanvasRenderingContext2D): void {

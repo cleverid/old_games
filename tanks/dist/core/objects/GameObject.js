@@ -8,14 +8,14 @@ define(["require", "exports"], function (require, exports) {
         transLocal = { position: { x: 0, y: 0 }, rotation: 0 };
         children = [];
         parent;
-        addChildren(obj, offset) {
-            obj.setParent(this, offset);
+        addChildren(obj, trans) {
+            obj.setParent(this, trans);
             this.children.push(obj);
             return this;
         }
-        setParent(obj, offset) {
+        setParent(obj, trans) {
             this.parent = obj;
-            this.transLocal = { position: offset, rotation: 0 };
+            this.transLocal = trans;
             return this;
         }
         setTransformation(trans) {
@@ -39,15 +39,18 @@ define(["require", "exports"], function (require, exports) {
             ctx.restore();
         }
         renderOsi = (ctx) => {
+            const length = 20;
+            const width = 1;
+            ctx.save();
             ctx.fillStyle = "blue";
-            ctx.rect(0, 0, 3, 100);
-            ctx.fill();
+            ctx.fillRect(this.pivot.x, this.pivot.y, width, length);
             ctx.fillStyle = "red";
-            ctx.rect(0, 0, 100, 3);
-            ctx.fill();
+            ctx.fillRect(this.pivot.x, this.pivot.y, length, width);
+            ctx.restore();
         };
         renderObjet(ctx) {
             this.render(ctx);
+            this.renderOsi(ctx);
         }
     }
     exports.GameObject = GameObject;

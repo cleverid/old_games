@@ -14,7 +14,7 @@ define(["require", "exports"], function (require, exports) {
                 x: x + Math.cos(fi) * offset.y - Math.sin(fi) * offset.x,
                 y: y + Math.sin(fi) * offset.y + Math.cos(fi) * offset.x
             },
-            rotation: 0
+            rotation: rotation + local.rotation
         };
     }
     exports.transLocalToGlobal = transLocalToGlobal;

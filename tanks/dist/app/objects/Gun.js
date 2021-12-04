@@ -6,7 +6,7 @@ define(["require", "exports", "../../core/objects/EmptyObject", "../../core/obje
         pivot = { x: 17, y: 25 };
         constructor() {
             super();
-            this.addChildren(new EmptyObject_1.EmptyObject(), { x: 0, y: -24 });
+            this.addChildren(new EmptyObject_1.EmptyObject(), { position: { x: 0, y: -24 }, rotation: 0 });
         }
         render(ctx) {
             const ofX = 0;
