@@ -55,16 +55,15 @@ export class Scene {
     }
   }
 
-  *walkRender() {
-    const rootObjects = this.objects.filter(o => o.parent === undefined);
+  *walkRender(parent?: GameObject): Generator<GameObject> {
+    const items = parent === undefined 
+      ? this.objects.filter(o => o.parent === undefined)
+      : parent.children;
 
-    for (const obj of rootObjects) {
+    for (const obj of items) {
       yield obj;
-    }
-    
-    for (const obj of rootObjects) {
-      for (const objChildren of obj.children) {
-        yield objChildren;
+      if (obj.children.length > 0) {
+        yield *this.walkRender(obj);
       }
     }
   }

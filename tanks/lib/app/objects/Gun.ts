@@ -1,8 +1,14 @@
+import { EmptyObject } from "../../core/objects/EmptyObject";
 import { GameObject } from "../../core/objects/GameObject";
 import { Point } from "../../core/types";
 
 export class Gun extends GameObject {
   pivot: Point = { x: 17, y: 25 };
+
+  constructor() {
+    super();
+    this.addChildren(new EmptyObject(), { x: 0, y: -24 })
+  }
 
   render(ctx: CanvasRenderingContext2D): void {
     const ofX = 0;

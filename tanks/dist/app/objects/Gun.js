@@ -1,9 +1,13 @@
-define(["require", "exports", "../../core/objects/GameObject"], function (require, exports, GameObject_1) {
+define(["require", "exports", "../../core/objects/EmptyObject", "../../core/objects/GameObject"], function (require, exports, EmptyObject_1, GameObject_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Gun = void 0;
     class Gun extends GameObject_1.GameObject {
         pivot = { x: 17, y: 25 };
+        constructor() {
+            super();
+            this.addChildren(new EmptyObject_1.EmptyObject(), { x: 0, y: -24 });
+        }
         render(ctx) {
             const ofX = 0;
             const ofY = 0;
