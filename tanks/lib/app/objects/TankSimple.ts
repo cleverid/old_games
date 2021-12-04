@@ -1,7 +1,7 @@
 import { GameObject } from "../../core/objects/GameObject";
 import { Point } from "../../core/types";
 
-export class SimpleTankWithoutGun extends GameObject {
+export class TankSimple extends GameObject {
   pivot: Point = { x: 17, y: 30 };
 
   render(ctx: CanvasRenderingContext2D): void {
