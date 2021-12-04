@@ -1,6 +1,7 @@
 import { CarController } from "../core/controllers/CarController";
 import { CopyPositionController } from "../core/controllers/CopyPositionController";
 import { LineMoveController } from "../core/controllers/LineMoveController";
+import { MouseMoveController } from "../core/controllers/MouseMoveController";
 import { TargetController } from "../core/controllers/TargetController";
 import { EmptyObject } from "../core/objects/EmptyObject";
 import { Scene } from "../core/Scene";
@@ -38,23 +39,13 @@ export const run = (canvas: HTMLCanvasElement) => {
     const bulletController = new LineMoveController(Math.PI / 4, 1);
 
     const scene = new Scene(ctx, width, height)
-        .addObject(tank1)
-        .addObject(tank2)
-        .addObject(cursor)
-        .addObject(aim)
-        .addObject(bullet)
-        .addController(bulletController, bullet)
-        .addController(controller1, tank1)
-        .addController(controller2, tank2)
-        .addController(aimController, aim)
-        .addController(targetController, gun1)
+        .addObject(tank1, controller1)
+        .addObject(tank2, controller2)
+        .addObject(cursor, new MouseMoveController(canvas))
+        .addObject(aim, aimController)
+        .addObject(bullet, bulletController)
+        .applyController(targetController, gun1)
     ;
-
-    canvas.addEventListener("mousemove", (e) => {
-        var rect = canvas.getBoundingClientRect();
-        const { clientX: x, clientY: y } = e
-        cursor.setTransformation({ position: { x: x - rect.x, y: y - rect.y }, rotation: 0 });
-    });
 
     setInterval(() => {
         scene.render();

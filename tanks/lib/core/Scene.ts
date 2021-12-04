@@ -12,12 +12,15 @@ export class Scene {
     private height: number
   ) {}
 
-  addObject(obj: GameObject): this {
+  addObject(obj: GameObject, controller?: BaseController): this {
     this.objects.push(obj);
+    if (controller) {
+      this.applyController(controller, obj);
+    }
     return this;
   }
 
-  addController(controller: BaseController, obj: GameObject): this {
+  applyController(controller: BaseController, obj: GameObject): this {
     this.controllers.push([controller, obj]);
     return this;
   }

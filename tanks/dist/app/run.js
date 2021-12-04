@@ -1,4 +1,4 @@
-define(["require", "exports", "../core/controllers/CarController", "../core/controllers/CopyPositionController", "../core/controllers/LineMoveController", "../core/controllers/TargetController", "../core/objects/EmptyObject", "../core/Scene", "./objects/AimObject", "./objects/Gun", "./objects/TankSimple"], function (require, exports, CarController_1, CopyPositionController_1, LineMoveController_1, TargetController_1, EmptyObject_1, Scene_1, AimObject_1, Gun_1, TankSimple_1) {
+define(["require", "exports", "../core/controllers/CarController", "../core/controllers/CopyPositionController", "../core/controllers/LineMoveController", "../core/controllers/MouseMoveController", "../core/controllers/TargetController", "../core/objects/EmptyObject", "../core/Scene", "./objects/AimObject", "./objects/Gun", "./objects/TankSimple"], function (require, exports, CarController_1, CopyPositionController_1, LineMoveController_1, MouseMoveController_1, TargetController_1, EmptyObject_1, Scene_1, AimObject_1, Gun_1, TankSimple_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.run = void 0;
@@ -27,21 +27,12 @@ define(["require", "exports", "../core/controllers/CarController", "../core/cont
         const bullet = new EmptyObject_1.EmptyObject();
         const bulletController = new LineMoveController_1.LineMoveController(Math.PI / 4, 1);
         const scene = new Scene_1.Scene(ctx, width, height)
-            .addObject(tank1)
-            .addObject(tank2)
-            .addObject(cursor)
-            .addObject(aim)
-            .addObject(bullet)
-            .addController(bulletController, bullet)
-            .addController(controller1, tank1)
-            .addController(controller2, tank2)
-            .addController(aimController, aim)
-            .addController(targetController, gun1);
-        canvas.addEventListener("mousemove", (e) => {
-            var rect = canvas.getBoundingClientRect();
-            const { clientX: x, clientY: y } = e;
-            cursor.setTransformation({ position: { x: x - rect.x, y: y - rect.y }, rotation: 0 });
-        });
+            .addObject(tank1, controller1)
+            .addObject(tank2, controller2)
+            .addObject(cursor, new MouseMoveController_1.MouseMoveController(canvas))
+            .addObject(aim, aimController)
+            .addObject(bullet, bulletController)
+            .applyController(targetController, gun1);
         setInterval(() => {
             scene.render();
         }, 0);

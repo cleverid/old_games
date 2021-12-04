@@ -13,11 +13,14 @@ define(["require", "exports", "./utils/transformationLocalToGlobal"], function (
             this.width = width;
             this.height = height;
         }
-        addObject(obj) {
+        addObject(obj, controller) {
             this.objects.push(obj);
+            if (controller) {
+                this.applyController(controller, obj);
+            }
             return this;
         }
-        addController(controller, obj) {
+        applyController(controller, obj) {
             this.controllers.push([controller, obj]);
             return this;
         }
