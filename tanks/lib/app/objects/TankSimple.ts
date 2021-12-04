@@ -1,8 +1,23 @@
 import { GameObject } from "../../core/objects/GameObject";
 import { Point } from "../../core/types";
+import { FireData } from "../types";
+import { BaseGun } from "./BaseGun";
+import { BaseTank } from "./BaseTank";
 
-export class TankSimple extends GameObject {
+export class TankSimple extends BaseTank {
   pivot: Point = { x: 17, y: 30 };
+
+  setGun(gun: GameObject): this {
+    this.addChildren(gun, { position: { x: 0, y: -6 }, rotation: 0});
+    return this;
+  }
+  fire(): FireData | undefined {
+    if (this.children.length > 0 && this.children[0] instanceof BaseGun) {
+      return this.children[0].fire();
+    }
+
+    return;
+  }
 
   render(ctx: CanvasRenderingContext2D): void {
     const ofX = 0;

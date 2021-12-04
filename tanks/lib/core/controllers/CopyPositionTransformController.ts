@@ -1,8 +1,8 @@
-import { BaseController } from "./BaseController";
 import { ITransformation, Transformation } from "../types";
 import { GameObject } from "../objects/GameObject";
+import { BaseTransformController } from "./BaseTransformController";
 
-export class CopyPositionController extends BaseController {
+export class CopyPositionTransformController extends BaseTransformController {
     constructor(private copyObject: GameObject) {
       super();
     }

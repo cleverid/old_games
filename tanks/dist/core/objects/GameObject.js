@@ -50,7 +50,6 @@ define(["require", "exports"], function (require, exports) {
         };
         renderObjet(ctx) {
             this.render(ctx);
-            this.renderOsi(ctx);
         }
     }
     exports.GameObject = GameObject;

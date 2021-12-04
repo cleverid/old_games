@@ -1,4 +1,6 @@
+import { BaseCallController } from "./controllers/BaseCallController";
 import { BaseController } from "./controllers/BaseController";
+import { BaseTransformController } from "./controllers/BaseTransformController";
 import { GameObject } from "./objects/GameObject";
 import { transLocalToGlobal } from "./utils/transformationLocalToGlobal";
 
@@ -25,8 +27,8 @@ export class Scene {
     return this;
   }
 
-  getController(obj: GameObject): BaseController | undefined {
-    return this.controllers.find((item) => item[1] === obj)?.[0];
+  getControllers(obj: GameObject): BaseController[] {
+    return this.controllers.filter((item) => item[1] === obj).map(i => i[0]);
   }
 
   render() {
@@ -36,10 +38,15 @@ export class Scene {
         obj.setTransformation(transGlobal);
       }
       
-      const controller = this.getController(obj);
-      if (controller) {
-        const trans = controller.step(obj);
-        obj.setTransformation(trans);
+      const controllers = this.getControllers(obj);
+      for (const controller of controllers) {
+        if (controller instanceof BaseTransformController) {
+          const trans = controller.step(obj);
+          obj.setTransformation(trans);
+        }
+        if (controller instanceof BaseCallController) {
+          controller.call();
+        }
       }
     }
 

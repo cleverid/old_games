@@ -1,5 +1,5 @@
-import { BaseController } from "./BaseController";
 import { Direct, ITransformation, Transformation } from "../types";
+import { BaseTransformController } from "./BaseTransformController";
 
 export type IMapDirectToKey = {[key in Direct]: string[]}
 export type IMapKeyToDirect = {[key in string]: Direct}
@@ -10,7 +10,7 @@ const mapDirectToKeyDefault: IMapDirectToKey = {
     "right": ["KeyD"],
 }
 
-export class CarController extends BaseController {
+export class CarTransformController extends BaseTransformController {
     private directs: Map<Direct, boolean> = new Map();
 
     constructor(mapDirectToKeyParams?: IMapDirectToKey) {

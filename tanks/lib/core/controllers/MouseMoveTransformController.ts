@@ -1,7 +1,7 @@
-import { BaseController } from "./BaseController";
 import { ITransformation, Point, Transformation } from "../types";
+import { BaseTransformController } from "./BaseTransformController";
 
-export class MouseMoveController extends BaseController {
+export class MouseMoveTransformController extends BaseTransformController {
   private position: Point = { x: -100, y: -100 };
   constructor(canvas: HTMLCanvasElement) {
     super();

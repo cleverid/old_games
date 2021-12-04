@@ -9,7 +9,7 @@ define(["require", "exports", "../../core/objects/EmptyObject", "./BaseGun"], fu
             this.addChildren(new EmptyObject_1.EmptyObject(), { position: { x: 0, y: -24 }, rotation: 0 });
         }
         fire() {
-            if (this.children.length > 0 && this.allowFire(3000)) {
+            if (this.children.length > 0) {
                 return {
                     guns: this.children.map(i => i.getTransformation())
                 };
@@ -29,4 +29,4 @@ define(["require", "exports", "../../core/objects/EmptyObject", "./BaseGun"], fu
     }
     exports.Gun = Gun;
 });
-//# sourceMappingURL=Gun.js.map
+//# sourceMappingURL=Gun%20copy.js.map

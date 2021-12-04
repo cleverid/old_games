@@ -1,4 +1,4 @@
-define(["require", "exports", "./utils/transformationLocalToGlobal"], function (require, exports, transformationLocalToGlobal_1) {
+define(["require", "exports", "./controllers/BaseCallController", "./controllers/BaseTransformController", "./utils/transformationLocalToGlobal"], function (require, exports, BaseCallController_1, BaseTransformController_1, transformationLocalToGlobal_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Scene = void 0;
@@ -24,8 +24,8 @@ define(["require", "exports", "./utils/transformationLocalToGlobal"], function (
             this.controllers.push([controller, obj]);
             return this;
         }
-        getController(obj) {
-            return this.controllers.find((item) => item[1] === obj)?.[0];
+        getControllers(obj) {
+            return this.controllers.filter((item) => item[1] === obj).map(i => i[0]);
         }
         render() {
             for (const obj of this.walkRender()) {
@@ -33,10 +33,15 @@ define(["require", "exports", "./utils/transformationLocalToGlobal"], function (
                     const transGlobal = (0, transformationLocalToGlobal_1.transLocalToGlobal)(obj.transLocal, obj.parent.trans);
                     obj.setTransformation(transGlobal);
                 }
-                const controller = this.getController(obj);
-                if (controller) {
-                    const trans = controller.step(obj);
-                    obj.setTransformation(trans);
+                const controllers = this.getControllers(obj);
+                for (const controller of controllers) {
+                    if (controller instanceof BaseTransformController_1.BaseTransformController) {
+                        const trans = controller.step(obj);
+                        obj.setTransformation(trans);
+                    }
+                    if (controller instanceof BaseCallController_1.BaseCallController) {
+                        controller.call();
+                    }
                 }
             }
             this.ctx.clearRect(-10, -10, this.width + 10, this.height + 10);

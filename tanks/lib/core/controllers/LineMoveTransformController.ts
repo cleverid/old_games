@@ -1,7 +1,7 @@
-import { BaseController } from "./BaseController";
 import { ITransformation, Transformation } from "../types";
+import { BaseTransformController } from "./BaseTransformController";
 
-export class LineMoveController extends BaseController {
+export class LineMoveTransformController extends BaseTransformController {
     private dx: number;
     private dy: number;
 

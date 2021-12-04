@@ -60,6 +60,6 @@ export abstract class GameObject implements ITransformation {
     renderObjet(ctx: CanvasRenderingContext2D): void {
         this.render(ctx);
         // this.renderPivot(ctx);
-        this.renderOsi(ctx);
+        // this.renderOsi(ctx);
     }
 }

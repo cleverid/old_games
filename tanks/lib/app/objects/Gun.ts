@@ -1,13 +1,24 @@
 import { EmptyObject } from "../../core/objects/EmptyObject";
-import { GameObject } from "../../core/objects/GameObject";
 import { Point } from "../../core/types";
+import { FireData } from "../types";
+import { BaseGun } from "./BaseGun";
 
-export class Gun extends GameObject {
+export class Gun extends BaseGun {
   pivot: Point = { x: 17, y: 25 };
 
   constructor() {
     super();
     this.addChildren(new EmptyObject(), { position: { x: 0, y: -24 }, rotation: 0})
+  }
+
+  fire(): FireData | undefined {
+    if (this.children.length > 0 && this.allowFire(3000)) {
+      return { 
+        guns: this.children.map(i => i.getTransformation()) 
+      };
+    }
+
+    return;
   }
 
   render(ctx: CanvasRenderingContext2D): void {
