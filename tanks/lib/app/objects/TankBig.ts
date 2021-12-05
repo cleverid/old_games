@@ -4,8 +4,8 @@ import { FireData } from "../types";
 import { BaseGun } from "./BaseGun";
 import { BaseTank } from "./BaseTank";
 
-export class TankSimple extends BaseTank {
-  pivot: Point = { x: 17, y: 30 };
+export class TankBig extends BaseTank {
+  pivot: Point = { x: 21, y: 30 };
 
   setGun(gun: GameObject): this {
     this.addChildren(gun, { position: { x: 0, y: -6 }, rotation: 0});
@@ -26,20 +26,20 @@ export class TankSimple extends BaseTank {
 
     // Основа танка
     ctx.strokeStyle = "black";
-    ctx.rect(ofX + 2, ofY + 10, 30, 40);
+    ctx.rect(ofX + 2, ofY + 10, 40, 45);
     ctx.stroke();
 
     // Гусеницы
     ctx.beginPath();
-    ctx.rect(ofX, ofY + 14, 2, 32);
+    ctx.rect(ofX, ofY + 14, 2, 37);
     ctx.stroke();
     ctx.beginPath();
-    ctx.rect(ofX + 32, ofY + 14, 2, 32);
+    ctx.rect(ofX + 42, ofY + 14, 2, 37);
     ctx.stroke();
 
     // Ящик сзади
     ctx.beginPath();
-    ctx.rect(ofX + 6, ofY + 40, 22, 6);
+    ctx.rect(ofX + 6, ofY + 45, 32, 6);
     ctx.stroke();
   }
 }

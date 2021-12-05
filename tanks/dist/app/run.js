@@ -1,4 +1,4 @@
-define(["require", "exports", "../core/controllers/CarTransformController", "../core/controllers/CopyPositionTransformController", "../core/controllers/KeyCallController", "../core/controllers/LineMoveTransformController", "../core/controllers/MouseMoveTransformController", "../core/controllers/TargetTransformController", "../core/objects/EmptyObject", "../core/Scene", "./objects/AimObject", "./objects/Bullet", "./objects/Gun", "./objects/TankSimple"], function (require, exports, CarTransformController_1, CopyPositionTransformController_1, KeyCallController_1, LineMoveTransformController_1, MouseMoveTransformController_1, TargetTransformController_1, EmptyObject_1, Scene_1, AimObject_1, Bullet_1, Gun_1, TankSimple_1) {
+define(["require", "exports", "../core/controllers/CarTransformController", "../core/controllers/CopyPositionTransformController", "../core/controllers/KeyCallController", "../core/controllers/LineMoveTransformController", "../core/controllers/MouseMoveTransformController", "../core/controllers/TargetTransformController", "../core/objects/EmptyObject", "../core/Scene", "./objects/AimObject", "./objects/Bullet", "./objects/Gun", "./objects/GunBig", "./objects/TankBig", "./objects/TankSimple"], function (require, exports, CarTransformController_1, CopyPositionTransformController_1, KeyCallController_1, LineMoveTransformController_1, MouseMoveTransformController_1, TargetTransformController_1, EmptyObject_1, Scene_1, AimObject_1, Bullet_1, Gun_1, GunBig_1, TankBig_1, TankSimple_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.run = void 0;
@@ -7,11 +7,11 @@ define(["require", "exports", "../core/controllers/CarTransformController", "../
         const ctx = canvas.getContext('2d');
         const scene = new Scene_1.Scene(ctx, width, height);
         const gun1 = new Gun_1.Gun();
-        const gun2 = new Gun_1.Gun();
+        const gun2 = new GunBig_1.GunBig();
         const tank1 = new TankSimple_1.TankSimple()
             .setGun(gun1)
             .setTransformation({ position: { x: 100, y: 100 }, rotation: 0 });
-        const tank2 = new TankSimple_1.TankSimple()
+        const tank2 = new TankBig_1.TankBig()
             .setGun(gun2)
             .setTransformation({ position: { x: 200, y: 100 }, rotation: 0 });
         const aim = new AimObject_1.AimObject();

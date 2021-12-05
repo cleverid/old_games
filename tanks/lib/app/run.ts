@@ -10,6 +10,8 @@ import { AimObject } from "./objects/AimObject";
 import { BaseTank } from "./objects/BaseTank";
 import { Bullet } from "./objects/Bullet";
 import { Gun } from "./objects/Gun";
+import { GunBig } from "./objects/GunBig";
+import { TankBig } from "./objects/TankBig";
 import { TankSimple } from "./objects/TankSimple";
 
 export const run = (canvas: HTMLCanvasElement) => {
@@ -18,11 +20,11 @@ export const run = (canvas: HTMLCanvasElement) => {
     const scene = new Scene(ctx, width, height);
     
     const gun1 = new Gun();
-    const gun2 = new Gun();
+    const gun2 = new GunBig();
     const tank1 = new TankSimple()
         .setGun(gun1)
         .setTransformation({ position: { x: 100, y: 100 }, rotation: 0 });
-    const tank2 = new TankSimple()
+    const tank2 = new TankBig()
         .setGun(gun2)
         .setTransformation({ position: { x: 200, y: 100 }, rotation: 0 });
 

@@ -1,9 +1,9 @@
 define(["require", "exports", "./BaseGun", "./BaseTank"], function (require, exports, BaseGun_1, BaseTank_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.TankSimple = void 0;
-    class TankSimple extends BaseTank_1.BaseTank {
-        pivot = { x: 17, y: 30 };
+    exports.TankBig = void 0;
+    class TankBig extends BaseTank_1.BaseTank {
+        pivot = { x: 21, y: 30 };
         setGun(gun) {
             this.addChildren(gun, { position: { x: 0, y: -6 }, rotation: 0 });
             return this;
@@ -18,19 +18,19 @@ define(["require", "exports", "./BaseGun", "./BaseTank"], function (require, exp
             const ofX = 0;
             const ofY = 0;
             ctx.strokeStyle = "black";
-            ctx.rect(ofX + 2, ofY + 10, 30, 40);
+            ctx.rect(ofX + 2, ofY + 10, 40, 45);
             ctx.stroke();
             ctx.beginPath();
-            ctx.rect(ofX, ofY + 14, 2, 32);
+            ctx.rect(ofX, ofY + 14, 2, 37);
             ctx.stroke();
             ctx.beginPath();
-            ctx.rect(ofX + 32, ofY + 14, 2, 32);
+            ctx.rect(ofX + 42, ofY + 14, 2, 37);
             ctx.stroke();
             ctx.beginPath();
-            ctx.rect(ofX + 6, ofY + 40, 22, 6);
+            ctx.rect(ofX + 6, ofY + 45, 32, 6);
             ctx.stroke();
         }
     }
-    exports.TankSimple = TankSimple;
+    exports.TankBig = TankBig;
 });
-//# sourceMappingURL=TankSimple%20copy.js.map
+//# sourceMappingURL=TankBig.js.map
